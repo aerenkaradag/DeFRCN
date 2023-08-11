@@ -176,12 +176,15 @@ PASCAL_VOC_ALL_CATEGORIES = {
         "horse", "person", "pottedplant", "train", "tvmonitor",
         "boat", "cat", "motorbike", "sheep", "sofa",
     ],
+    4: ["car", "cat", "person", "bus", "motorbike",
+    ],    
 }
 
 PASCAL_VOC_NOVEL_CATEGORIES = {
     1: ["bird", "bus", "cow", "motorbike", "sofa"],
     2: ["aeroplane", "bottle", "cow", "horse", "sofa"],
     3: ["boat", "cat", "motorbike", "sheep", "sofa"],
+    4: ["person"],
 }
 
 PASCAL_VOC_BASE_CATEGORIES = {
@@ -196,6 +199,8 @@ PASCAL_VOC_BASE_CATEGORIES = {
     3: ["aeroplane", "bicycle", "bird", "bottle", "bus",
         "car", "chair", "cow", "diningtable", "dog",
         "horse", "person", "pottedplant", "train", "tvmonitor",
+    ],
+    4: ["car", "cat", "bus", "motorbike",
     ],
 }
 

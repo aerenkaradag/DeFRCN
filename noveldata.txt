@@ -1,0 +1,4 @@
+"box_3shot_sheep_train" -> "box_3shot_myobject_train"
+
+
+# not registered hatası için Canere yaz

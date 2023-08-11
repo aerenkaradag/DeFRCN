@@ -176,8 +176,10 @@ PASCAL_VOC_ALL_CATEGORIES = {
         "horse", "person", "pottedplant", "train", "tvmonitor",
         "boat", "cat", "motorbike", "sheep", "sofa",
     ],
-    4: ["car", "cat", "person", "bus", "motorbike",
-    ],    
+    4: ["bicycle", "bottle", "bus", "sheep",
+        "chair", "cow", "diningtable",
+        "horse", "pottedplant", "train", "tvmonitor", "person",
+    ],
 }
 
 PASCAL_VOC_NOVEL_CATEGORIES = {
@@ -200,7 +202,9 @@ PASCAL_VOC_BASE_CATEGORIES = {
         "car", "chair", "cow", "diningtable", "dog",
         "horse", "person", "pottedplant", "train", "tvmonitor",
     ],
-    4: ["car", "cat", "bus", "motorbike",
+    4: ["bicycle", "bottle", "bus", "sheep",
+        "chair", "cow", "diningtable",
+        "horse", "pottedplant", "train", "tvmonitor",
     ],
 }
 

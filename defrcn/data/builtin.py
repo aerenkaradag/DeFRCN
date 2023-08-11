@@ -56,7 +56,7 @@ def register_all_voc(root="datasets"):
     #     ("voc_2007_test_all2", "VOC2007", "test", "base_novel_2", 2),
     #     ("voc_2007_test_all3", "VOC2007", "test", "base_novel_3", 3),
     # ]
-    
+
     # only 2007s
     METASPLITS = [
         ("voc_2007_trainval_base1", "VOC2007", "trainval", "base1", 1),
@@ -76,7 +76,7 @@ def register_all_voc(root="datasets"):
         ("voc_2007_test_all3", "VOC2007", "test", "base_novel_3", 3),
     ]
     for prefix in ["all", "novel"]:
-        for sid in range(1, 5):
+        for sid in range(1, 5): # new different 4 class Eren
             for shot in [1, 2, 3, 5, 10]:
                 for year in [2007, 2012]:
                     for seed in range(30):

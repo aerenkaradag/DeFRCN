@@ -19,4 +19,4 @@ SOLVER:
   STEPS: (85000, 100000)
   MAX_ITER: 110000
   CHECKPOINT_PERIOD: 200000
-OUTPUT_DIR: "/Path/to/Output/Dir"
+OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/new/defrcn_det_r101_base2"

@@ -32,4 +32,4 @@ SOLVER:
 TEST:
   PCB_ENABLE: True
 PCB_MODELPATH: "/root/DeFRCN/ImageNetPretrained/torchvision"
-OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/new/defrcn_det_r101_base2"
+OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/new/defrcn_det_r101_base4"

@@ -1,6 +1,6 @@
 _BASE_: "../Base-RCNN.yaml"
 MODEL:
-  WEIGHTS: "/Path/to/ImageNet/Pretrain/Weight"
+  WEIGHTS: "/root/DeFRCN/ImageNetPretrained/MSRA/"
   MASK_ON: False
   RESNETS:
     DEPTH: 101

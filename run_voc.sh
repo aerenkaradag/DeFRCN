@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
+python3 clear_memory.py
 EXP_NAME=$1
 SAVE_DIR=/root/DeFRCN/checkpoints/voc/${EXP_NAME}
 IMAGENET_PRETRAIN=/root/DeFRCN/ImageNetPretrained/MSRA/R-101.pkl                            # <-- change it to you path
 IMAGENET_PRETRAIN_TORCH=/root/DeFRCN/ImageNetPretrained/torchvision/resnet101-5d3b4d8f.pth  # <-- change it to you path
 SPLIT_ID=$2
+echo "EXP_NAME: ${EXP_NAME}"
+echo "SAVE_DIR: ${SAVE_DIR}"
+echo "IMAGENET_PRETRAIN: ${IMAGENET_PRETRAIN}"
+echo "IMAGENET_PRETRAIN_TORCH: ${IMAGENET_PRETRAIN_TORCH}"
+echo "SPLIT_ID: ${SPLIT_ID}"
 
 
 # ------------------------------- Base Pre-train ---------------------------------- #
@@ -39,7 +45,7 @@ do
         done
     done
 done
-python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 2 3 5 10  # surmarize all results
+python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 # 2 3 5 10  # surmarize all results
 
 
 # ----------------------------- Model Preparation --------------------------------- #
@@ -66,7 +72,7 @@ do
         rm ${OUTPUT_DIR}/model_final.pth
     done
 done
-python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_gfsod_r101_novel${SPLIT_ID}/tfa-like --shot-list 1 2 3 5 10  # surmarize all results
+python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_gfsod_r101_novel${SPLIT_ID}/tfa-like --shot-list 1 # 2 3 5 10  # surmarize all results
 
 
 # ------------------------------ Novel Fine-tuning ------------------------------- #  not necessary, just for the completeness of defrcn
@@ -87,4 +93,4 @@ do
         rm ${OUTPUT_DIR}/model_final.pth
     done
 done
-python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/tfa-like --shot-list 1 2 3 5 10  # surmarize all results
+python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/tfa-like --shot-list 1 # 2 3 5 10  # surmarize all results

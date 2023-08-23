@@ -37,29 +37,36 @@ def register_all_voc(root="datasets"):
         ("voc_2007_trainval_base1", "VOC2007", "trainval", "base1", 1),
         ("voc_2007_trainval_base2", "VOC2007", "trainval", "base2", 2),
         ("voc_2007_trainval_base3", "VOC2007", "trainval", "base3", 3),
+        ("voc_2007_trainval_base4", "VOC2007", "trainval", "base4", 4),
         ("voc_2012_trainval_base1", "VOC2012", "trainval", "base1", 1),
         ("voc_2012_trainval_base2", "VOC2012", "trainval", "base2", 2),
         ("voc_2012_trainval_base3", "VOC2012", "trainval", "base3", 3),
+        ("voc_2012_trainval_base4", "VOC2012", "trainval", "base4", 4),
         ("voc_2007_trainval_all1", "VOC2007", "trainval", "base_novel_1", 1),
         ("voc_2007_trainval_all2", "VOC2007", "trainval", "base_novel_2", 2),
         ("voc_2007_trainval_all3", "VOC2007", "trainval", "base_novel_3", 3),
+        ("voc_2007_trainval_all4", "VOC2007", "trainval", "base_novel_4", 4),
         ("voc_2012_trainval_all1", "VOC2012", "trainval", "base_novel_1", 1),
         ("voc_2012_trainval_all2", "VOC2012", "trainval", "base_novel_2", 2),
         ("voc_2012_trainval_all3", "VOC2012", "trainval", "base_novel_3", 3),
+        ("voc_2012_trainval_all4", "VOC2012", "trainval", "base_novel_4", 4),
         ("voc_2007_test_base1", "VOC2007", "test", "base1", 1),
         ("voc_2007_test_base2", "VOC2007", "test", "base2", 2),
         ("voc_2007_test_base3", "VOC2007", "test", "base3", 3),
+        ("voc_2007_test_base4", "VOC2007", "test", "base4", 4),
         ("voc_2007_test_novel1", "VOC2007", "test", "novel1", 1),
         ("voc_2007_test_novel2", "VOC2007", "test", "novel2", 2),
         ("voc_2007_test_novel3", "VOC2007", "test", "novel3", 3),
+        ("voc_2007_test_novel4", "VOC2007", "test", "novel4", 4),
         ("voc_2007_test_all1", "VOC2007", "test", "base_novel_1", 1),
         ("voc_2007_test_all2", "VOC2007", "test", "base_novel_2", 2),
         ("voc_2007_test_all3", "VOC2007", "test", "base_novel_3", 3),
+        ("voc_2007_test_all4", "VOC2007", "test", "base_novel_4", 4),
     ]
 
     for prefix in ["all", "novel"]:
         for sid in range(1, 5): # new different 4 class Eren
-            for shot in [1, 2, 3, 5, 10]:
+            for shot in [1, 2]: #, 3, 5, 10]:
                 for year in [2007, 2012]:
                     for seed in range(30):
                         seed = "_seed{}".format(seed)

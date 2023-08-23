@@ -8,6 +8,7 @@ def surgery_loop(args, surgery):
     save_name = args.tar_name + '_' + ('remove' if args.method == 'remove' else 'surgery') + '.pth'
     save_path = os.path.join(args.save_dir, save_name)
     os.makedirs(args.save_dir, exist_ok=True)
+    print("model_surgery kaydedildi:", save_path)
 
     ckpt = torch.load(args.src_path)
     if 'scheduler' in ckpt:
@@ -35,6 +36,7 @@ def surgery_loop(args, surgery):
 
 
 def main(args):
+    print("model_surgery argumanlari:", args)
     """
     Either remove the final layer weights for fine-tuning on novel dataset or
     append randomly initialized weights for the novel classes.
@@ -64,6 +66,7 @@ def main(args):
         if 'cls_score' in param_name:
             new_weight[-1] = pretrained_weight[-1]  # bg class
         ckpt['model'][weight_name] = new_weight
+        print("yeni weightler verildi")
 
     surgery_loop(args, surgery)
 
@@ -71,7 +74,7 @@ def main(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', type=str, default='coco', choices=['voc', 'coco'])
+    parser.add_argument('--dataset', type=str, default='voc', choices=['voc', 'coco'])
     parser.add_argument('--src-path', type=str, default='', help='Path to the main checkpoint')
     parser.add_argument('--save-dir', type=str, default='', required=True, help='Save directory')
     parser.add_argument('--method', choices=['remove', 'randinit'], required=True,

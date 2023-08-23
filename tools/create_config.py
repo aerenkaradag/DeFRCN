@@ -4,7 +4,7 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', type=str, default='coco14', help='', choices=['coco14', 'voc'])
+    parser.add_argument('--dataset', type=str, default='voc', help='', choices=['coco14', 'voc'])
     parser.add_argument('--config_root', type=str, default='', help='the path to config dir')
     parser.add_argument('--shot', type=int, default=1, help='shot to run experiments over')
     parser.add_argument('--seed', type=int, default=0, help='seed to run experiments over')
@@ -30,19 +30,27 @@ def save_config_file(yaml_info, yaml_path):
 def main():
     args = parse_args()
     suffix = 'novel' if args.setting == 'fsod' else 'all'
-
+    print("create_config.py:")
+    print("args:", args)
+    print("suffix:", suffix)
     if args.dataset in ['voc']:
         name_template = 'defrcn_{}_r101_novelx_{}shot_seedx.yaml'
         yaml_path = os.path.join(args.config_root, name_template.format(args.setting, args.shot))
+        print("DeFRCN/tools/create_config.py line 39, yaml_path:", yaml_path)
         yaml_info = load_config_file(yaml_path)
         for i, lineinfo in enumerate(yaml_info):
             if '  TRAIN: ' in lineinfo:
+                print("************TRAIN************")
                 _str_ = '  TRAIN: ("voc_2007_trainval_{}{}_{}shot_seed{}", )\n'
+                print(_str_)
                 yaml_info[i] = _str_.format(suffix, args.split, args.shot, args.seed)
             if '  TEST: ' in lineinfo:
+                print("************TEST************")
                 _str_ = '  TEST: ("voc_2007_test_{}{}",)\n'
+                print(_str_)
                 yaml_info[i] = _str_.format(suffix, args.split)
         yaml_path = yaml_path.replace('novelx', 'novel{}'.format(args.split))
+        print("DeFRCN/tools/create_config.py line 53, yaml_path:", yaml_path)
     elif args.dataset in ['coco14']:
         name_template = 'defrcn_{}_r101_novel_{}shot_seedx.yaml'
         yaml_path = os.path.join(args.config_root, name_template.format(args.setting, args.shot))
@@ -55,6 +63,7 @@ def main():
         raise NotImplementedError
 
     yaml_path = yaml_path.replace('seedx', 'seed{}'.format(args.seed))
+    print("DeFRCN/tools/create_config.py line 66, yaml_path:", yaml_path)
     save_config_file(yaml_info, yaml_path)
 
 

@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 
+python3 clear_memory.py
 EXP_NAME=$1
 SAVE_DIR=/root/DeFRCN/checkpoints/voc/${EXP_NAME}
 IMAGENET_PRETRAIN=/root/DeFRCN/ImageNetPretrained/MSRA/R-101.pkl                            # <-- change it to you path
 IMAGENET_PRETRAIN_TORCH=/root/DeFRCN/ImageNetPretrained/torchvision/resnet101-5d3b4d8f.pth  # <-- change it to you path
 SPLIT_ID=$2
+echo "EXP_NAME: ${EXP_NAME}"
+echo "SAVE_DIR: ${SAVE_DIR}"
+echo "IMAGENET_PRETRAIN: ${IMAGENET_PRETRAIN}"
+echo "IMAGENET_PRETRAIN_TORCH: ${IMAGENET_PRETRAIN_TORCH}"
+echo "SPLIT_ID: ${SPLIT_ID}"
 
 
 # ------------------------------- Base Pre-train ---------------------------------- #
-python3 main.py --num-gpus 1 --eval-only --config-file configs/voc/defrcn_det_r101_base${SPLIT_ID}.yaml     \
+python3 main.py --num-gpus 1 --config-file configs/voc/defrcn_det_r101_base${SPLIT_ID}.yaml     \
     --opts MODEL.WEIGHTS ${IMAGENET_PRETRAIN}                                                   \
            OUTPUT_DIR ${SAVE_DIR}/defrcn_det_r101_base${SPLIT_ID}
 

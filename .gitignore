@@ -36,3 +36,7 @@ datasets/cocosplit
 datasets/VOC2007
 datasets/VOC2012
 datasets/vocsplit
+ImageNetPretrained/
+setup.sh
+presetup.sh
+tests/

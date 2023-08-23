@@ -23,4 +23,4 @@ SOLVER:
   MAX_ITER: 15000
   CHECKPOINT_PERIOD: 200000
   WARMUP_ITERS: 100
-OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/new/defrcn_det_r101_base4"
+OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/"

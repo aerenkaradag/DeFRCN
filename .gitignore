@@ -40,3 +40,4 @@ ImageNetPretrained/
 setup.sh
 presetup.sh
 tests/
+configs/eski-voc/

@@ -9,7 +9,7 @@ def surgery_loop(args, surgery):
     save_path = os.path.join(args.save_dir, save_name)
     os.makedirs(args.save_dir, exist_ok=True)
     print("model_surgery kaydedildi:", save_path)
-
+    print(args.src_path)
     ckpt = torch.load(args.src_path)
     if 'scheduler' in ckpt:
         del ckpt['scheduler']
@@ -84,7 +84,7 @@ if __name__ == '__main__':
                         default=['roi_heads.box_predictor.cls_score', 'roi_heads.box_predictor.bbox_pred'])
     parser.add_argument('--tar-name', type=str, default='model_reset', help='Name of the new ckpt')
     args = parser.parse_args()
-
+    print(args.src_path)
     if args.dataset == 'coco':
         NOVEL_CLASSES = [1, 2, 3, 4, 5, 6, 7, 9, 16, 17, 18, 19, 20, 21, 44, 62, 63, 64, 67, 72]
         BASE_CLASSES = [8, 10, 11, 13, 14, 15, 22, 23, 24, 25, 27, 28, 31, 32, 33, 34, 35, 36, 37, 38,

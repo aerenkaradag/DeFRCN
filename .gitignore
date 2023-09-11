@@ -41,3 +41,4 @@ setup.sh
 presetup.sh
 tests/
 configs/eski-voc/
+configs/coco/

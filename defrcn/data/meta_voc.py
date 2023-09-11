@@ -19,11 +19,14 @@ def load_filtered_voc_instances(
         split (str): one of "train", "test", "val", "trainval"
     """
     is_shots = "shot" in name
+    print("shots", is_shots)
     if is_shots:
         fileids = {}
         split_dir = os.path.join("datasets", "vocsplit")
         shot = name.split("_")[-2].split("shot")[0]
+        print("shot: ", shot)
         seed = int(name.split("_seed")[-1])
+        print("seed: ", seed)
         split_dir = os.path.join(split_dir, "seed{}".format(seed))
         for cls in classnames:
             with PathManager.open(

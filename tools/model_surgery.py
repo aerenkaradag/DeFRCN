@@ -96,6 +96,7 @@ if __name__ == '__main__':
     elif args.dataset == 'voc':
         TAR_SIZE = 20 # 15?
     else:
+        print("TAR_SIZE'i degistir")
         raise NotImplementedError
 
     main(args)

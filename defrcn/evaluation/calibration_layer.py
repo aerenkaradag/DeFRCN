@@ -135,6 +135,7 @@ class PrototypicalCalibrationBlock:
             elif 'voc' in dsname:
                 exclude_ids = list(range(0, 15))
             else:
+                print("exclude_ids'i degistir")
                 raise NotImplementedError
         return exclude_ids
 

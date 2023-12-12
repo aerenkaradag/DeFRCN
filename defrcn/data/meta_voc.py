@@ -91,7 +91,10 @@ def load_filtered_voc_instances(
                     r["annotations"] = instances
                     dicts_.append(r)
             if len(dicts_) > int(shot):
-                dicts_ = np.random.choice(dicts_, int(shot), replace=False)
+                # dicts_ = np.random.choice(dicts_, int(shot), replace=False) # random shot selection (original code)
+                # dicts_ = dicts_[:int(shot)] # ilk x kadar framei shot olarak al
+                step = len(dicts_) // int(shot)
+                dicts_ = [dicts_[i * step] for i in range(int(shot))] # o classtaki fotolardan eşit aralıklarla shot alınması
             dicts.extend(dicts_)
     else:
         for fileid in fileids:

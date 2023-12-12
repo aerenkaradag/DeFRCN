@@ -66,7 +66,7 @@ def register_all_voc(root="datasets"):
 
     for prefix in ["all", "novel"]:
         for sid in range(1, 5): # new different 4 class Eren
-            for shot in [1, 2]: #, 3, 5, 10]:
+            for shot in [1, 2, 3]: #1, 2, 3, 5, 10]:
                 for year in [2007, 2012]:
                     for seed in range(30):
                         seed = "_seed{}".format(seed)

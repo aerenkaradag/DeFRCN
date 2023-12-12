@@ -94,7 +94,7 @@ if __name__ == '__main__':
         IDMAP = {v: i for i, v in enumerate(ALL_CLASSES)}
         TAR_SIZE = 80
     elif args.dataset == 'voc':
-        TAR_SIZE = 20 # 15?
+        TAR_SIZE = 1 # 20?
     else:
         print("TAR_SIZE'i degistir")
         raise NotImplementedError

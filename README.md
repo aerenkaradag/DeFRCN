@@ -1,5 +1,11 @@
 <div align="center"><img src="assets/header.png" width="840"></div>
 
+# Setup
+cd /root/
+git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+cd DeFRCN
+
+
 ## Introduction
 
 This repo contains the official PyTorch implementation of our ICCV paper

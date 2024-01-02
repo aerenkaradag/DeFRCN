@@ -176,7 +176,7 @@ PASCAL_VOC_ALL_CATEGORIES = {
         "horse", "person", "pottedplant", "train", "tvmonitor",
         "boat", "cat", "motorbike", "sheep", "sofa",
     ],
-    4: ["person"
+    4: ["newobject"
     ]
 }
 
@@ -184,7 +184,7 @@ PASCAL_VOC_NOVEL_CATEGORIES = {
     1: ["bird", "bus", "cow", "motorbike", "sofa"],
     2: ["aeroplane", "bottle", "cow", "horse", "sofa"],
     3: ["boat", "cat", "motorbike", "sheep", "sofa"],
-    4: ["person"],
+    4: ["newobject"],
 }
 
 PASCAL_VOC_BASE_CATEGORIES = {

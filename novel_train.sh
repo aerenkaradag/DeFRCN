@@ -42,7 +42,7 @@ do
         done
     done
 done
-python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 2 # surmarize all results
+python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 2 3 # surmarize all results
 
 
 # # ----------------------------- Model Preparation --------------------------------- #

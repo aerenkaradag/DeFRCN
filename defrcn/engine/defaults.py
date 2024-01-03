@@ -67,8 +67,8 @@ def default_argument_parser():
     parser.add_argument("--dist-url", default="tcp://127.0.0.1:{}".format(port))
     parser.add_argument("--opts", default=None, nargs=argparse.REMAINDER,
                         help="Modify config options using the command-line")
-    print("defaults.py:")    
-    print(parser)
+    # print("defaults.py:")    
+    # print(parser)
     return parser
 
 
@@ -247,10 +247,10 @@ class DefaultTrainer(SimpleTrainer):
         model = self.build_model(cfg)
         optimizer = self.build_optimizer(cfg, model)
         data_loader = self.build_train_loader(cfg)
-        print("defaults.py:")
-        print("model:", model)
-        print("optimizer:", optimizer)
-        print("data_loader:", data_loader)
+        # print("defaults.py:")
+        # print("model:", model)
+        # print("optimizer:", optimizer)
+        # print("data_loader:", data_loader)
 
         # For training, wrap with DDP. But don't need this for inference.
         if comm.get_world_size() > 1:

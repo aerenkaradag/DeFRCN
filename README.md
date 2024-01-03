@@ -1,10 +1,20 @@
 <div align="center"><img src="assets/header.png" width="840"></div>
 
 # Setup
+```
 cd /root/
 git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+bash DeFRCN/assets/presetup.sh 
+# enter and yes
+#close terminal and open new terminal
+conda create -y -n newenv python=3.8 anaconda
+conda activate newenv 
 cd DeFRCN
+bash setup.sh
+python fotocekici2.py --custom --count 1 --random True --video deer
 
+
+```
 
 ## Introduction
 

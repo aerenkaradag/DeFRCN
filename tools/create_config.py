@@ -32,7 +32,7 @@ def main():
     suffix = 'novel' if args.setting == 'fsod' else 'all'
     print("create_config.py:")
     print("args:", args)
-    print("suffix:", suffix)
+    # print("suffix:", suffix)
     if args.dataset in ['voc']:
         name_template = 'defrcn_{}_r101_novelx_{}shot_seedx.yaml'
         yaml_path = os.path.join(args.config_root, name_template.format(args.setting, args.shot))

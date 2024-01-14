@@ -147,13 +147,16 @@ def okumaca(number, video_name, num):
     src = os.path.join(os.getcwd(),"assets", "sample.xml")
     src_emp = os.path.join(os.getcwd(),"assets", "sample_empty.xml")
     c = []
+
     a = 0
-    while ((number) > 0):
+    while (number > 0):
         a = a + 1
         txt = linecache.getline(os.path.join(os.getcwd(),"assets", "groundtruths","groundtruth{}.txt".format(video_name)), a)
         
         txt = txt.split(",")
+        #,print(int(float(txt[0])) == 0)
         if(str(txt[0]) != "nan" and int(float(txt[0])) != 0):
+          #print(a)
           c.append(a)
           txt[0] = (int(float(txt[0])))
           txt[1] = (int(float(txt[1])))
@@ -202,28 +205,29 @@ def ad_ayarla(number, c, video_name, num):
         shutil.copyfile(src, dest)
         a = a + 1
         num = num + 1
+    f.write(str(dogrudizim(num)) + "\n")
     return num
+
 def main(args):
     num = 9975
     count = 0
     if args.cevat:
-        dest = os.path.join(os.getcwd(), "DeFRCN-main")
-        dest = os.path.join(dest, "datasets", "VOC2007")
+        dest = os.path.join(os.getcwd(), "datasets", "VOC2007")
         for number in [1]:
           #print("girdigirdi")
-          src = os.path.join("DeFRCN-main", "datasets", os.path.join("VOC2007", "JPEGImages", str(dogrudizim(number)) + ".jpg"))
+          src = os.path.join("datasets", os.path.join("VOC2007", "JPEGImages", str(dogrudizim(number)) + ".jpg"))
           dst = os.path.join(dest, "JPEGImages", str(dogrudizim(num + count) + ".jpg"))
           shutil.copyfile(src, dst)
 
-          src = os.path.join("DeFRCN-main", "datasets", os.path.join("VOC2007", "Annotations", str(dogrudizim(number)) + ".xml"))
+          src = os.path.join("datasets", os.path.join("VOC2007", "Annotations", str(dogrudizim(number)) + ".xml"))
           dst = os.path.join(dest, "Annotations", str(dogrudizim(num+ count)) + ".xml")
           shutil.copyfile(src,dst)
 
           num = num + 1
           count = count + 1
     else:
-      src = os.path.join(os.getcwd(),"assets", "sample.xml")
-      src_emp = os.path.join(os.getcwd(),"assets", "sample_empty.xml")
+      src = os.path.join(os.getcwd(), "assets", "sample.xml")
+      src_emp = os.path.join(os.getcwd(), "assets", "sample_empty.xml")
       
       img = cv2.imread(os.path.join("assets", "video_resim", args.video,"00000001.jpg"))
       
@@ -258,11 +262,11 @@ def main(args):
         os.mkdir("VOC2007/ImageSets/Main")
         print("klasörler oluşturuldu")
         video_list = os.listdir("assets/video_resim")
-        start_num = 1
+        start_numer = 1
         for video_name in video_list:
             resimsayisi = len(os.listdir(os.path.join(os.getcwd(), "assets", "video_resim", video_name)))
-            c , numberss = okumaca(resimsayisi, video_name, start_num)
-            num = ad_ayarla(numberss - 1 , c, video_name, start_num)
+            c , start_num = okumaca(resimsayisi, video_name, start_numer)
+            num = ad_ayarla(resimsayisi - 1, c, video_name, start_numer)
 
             # Iterate over the numbers 0 through 29
             for i in range(30):
@@ -279,10 +283,12 @@ def main(args):
                     
                     # Create and write to the text file
                     with open(file_path, "w") as f:
-                        for img_num in range(num, shot + num):
+                        for img_num in range(start_numer, shot + start_numer):
                             # The content to be written in each text file
                             content = f"datasets/VOC2007/JPEGImages/{str(img_num).zfill(6)}.jpg\n"
                             f.write(content)
+            
+            start_numer = start_num
             # Check if "9.txt" already exists
             if os.path.exists(os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Layout", "train.txt")):
                 with open(f'{video_name}.txt', 'r') as source_file:
@@ -311,19 +317,16 @@ def main(args):
         print("Files copied and renamed successfully.")
       if foto != 0:
           a = 0
-
-          dest = os.path.join(os.getcwd(), "DeFRCN-main")
-          dest = os.path.join(dest, "datasets", "VOC2007")
-          path = os.path.join("DeFRCN-main","datasets", "VOC2007")
-          if os.path.isdir(path):
-              shutil.rmtree(path)
-          dest2 = os.path.join("DeFRCN-main", "datasets","VOC2007")
+          dest = os.path.join(os.getcwd(), "datasets", "VOC2007")
+          if os.path.isdir(dest):
+              shutil.rmtree(dest)
+          dest2 = os.path.join("datasets","VOC2007")
           shutil.move("VOC2007",dest2)
 
-          path2 = os.path.join("DeFRCN-main","datasets", "vocsplit")
+          path2 = os.path.join("datasets", "vocsplit")
           if os.path.isdir(path2):
               shutil.rmtree(path2)
-          dest2 = os.path.join("DeFRCN-main", "datasets","vocsplit")
+          dest2 = os.path.join("datasets","vocsplit")
           shutil.move("vocsplit",dest2)
 
           if args.random:
@@ -336,17 +339,18 @@ def main(args):
           count = 0
           for number in rand:
             #print("girdigirdi")
-            src = os.path.join("DeFRCN-main", "datasets", os.path.join("VOC2007", "JPEGImages", str(dogrudizim(number)) + ".jpg"))
+            src = os.path.join("datasets", os.path.join("VOC2007", "JPEGImages", str(dogrudizim(number)) + ".jpg"))
             dst = os.path.join(dest, "JPEGImages", str(dogrudizim(num + count) + ".jpg"))
             shutil.copyfile(src, dst)
 
-            src = os.path.join("DeFRCN-main", "datasets", os.path.join("VOC2007", "Annotations", str(dogrudizim(number)) + ".xml"))
+            src = os.path.join("datasets", os.path.join("VOC2007", "Annotations", str(dogrudizim(number)) + ".xml"))
             dst = os.path.join(dest, "Annotations", str(dogrudizim(num+ count)) + ".xml")
             shutil.copyfile(src,dst)
 
             num = num + 1
             count = count + 1
       #add_background_to_xml(dst)
+            
 def download_videos():
     with open('./assets/videosST.txt', 'r') as file:
         for line in file:
@@ -364,7 +368,7 @@ def download_groundtruths():
     # for ST videos: https://drive.google.com/file/d/1YdNAtXlzlnOqTTkvum9onRG16J-dt0E0
     os.system('gdown "https://drive.google.com/uc?export=download&id=1T3NBp2diZKf4eElBu4TdckXm6YaDK1p6" -O groundtruths.zip')
     with zipfile.ZipFile('groundtruths.zip', 'r') as zip_ref:
-        zip_ref.extractall('assets/')
+        zip_ref.extractall('/assets/')
     os.remove('groundtruths.zip')
     print("groundtruth downloaded")
 

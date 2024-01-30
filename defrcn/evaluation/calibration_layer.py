@@ -106,10 +106,15 @@ class PrototypicalCalibrationBlock:
     def execute_calibration(self, inputs, dts):
 
         img = cv2.imread(inputs[0]['file_name'])
-
+        #print("self.cfg.TEST.PCB_UPPER: ", self.cfg.TEST.PCB_UPPER)
         ileft = (dts[0]['instances'].scores > self.cfg.TEST.PCB_UPPER).sum()
+        #print("ileft: ", ileft) # always 0
+        #print("self.cfg.TEST.PCB_LOWER: ", self.cfg.TEST.PCB_LOWER)
         iright = (dts[0]['instances'].scores > self.cfg.TEST.PCB_LOWER).sum()
+        #print("iright: ", iright) # o framede kaç box detect etmişse mesela 70
         assert ileft <= iright
+        import time
+        time.sleep(10)
         boxes = [dts[0]['instances'].pred_boxes[ileft:iright]]
 
         features = self.extract_roi_features(img, boxes)

@@ -368,7 +368,7 @@ def download_groundtruths():
     # for ST videos: https://drive.google.com/file/d/1YdNAtXlzlnOqTTkvum9onRG16J-dt0E0
     os.system('gdown "https://drive.google.com/uc?export=download&id=1T3NBp2diZKf4eElBu4TdckXm6YaDK1p6" -O groundtruths.zip')
     with zipfile.ZipFile('groundtruths.zip', 'r') as zip_ref:
-        zip_ref.extractall('/assets/')
+        zip_ref.extractall('assets/')
     os.remove('groundtruths.zip')
     print("groundtruth downloaded")
 

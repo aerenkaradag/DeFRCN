@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from itertools import tee
 import os
 import torch
 import logging
@@ -50,8 +51,9 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
             instances = output["instances"].to(self._cpu_device)
             boxes = instances.pred_boxes.tensor.numpy()
             scores = instances.scores.tolist()
-            classes = instances.pred_classes.tolist()
+            classes = instances.pred_classes.tolist()            
             for box, score, cls in zip(boxes, scores, classes):
+                #print("box, score, cls: ", box, score, cls)
                 xmin, ymin, xmax, ymax = box
                 # The inverse of data loading logic in `datasets/pascal_voc.py`
                 xmin += 1
@@ -59,6 +61,7 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
                 self._predictions[cls].append(
                     f"{image_id} {score:.3f} {xmin:.1f} {ymin:.1f} {xmax:.1f} {ymax:.1f}"
                 )
+                #print(f"{image_id} {score:.3f} {xmin:.1f} {ymin:.1f} {xmax:.1f} {ymax:.1f}")
 
     def evaluate(self):
         """
@@ -71,6 +74,7 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
         predictions = defaultdict(list)
         for predictions_per_rank in all_predictions:
             for clsid, lines in predictions_per_rank.items():
+                #print("clsid, lines: ", clsid, lines)
                 predictions[clsid].extend(lines)
         del all_predictions
 
@@ -88,7 +92,46 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
             aps_base = defaultdict(list)
             aps_novel = defaultdict(list)
             exist_base, exist_novel = False, False
+
+            with open("/root/DeFRCN/output.txt", "w") as output_file:
+                for cls_id, lines in predictions.items():
+                    # Write class identifier and class name to the file
+                    output_file.write(f"Class ID: {cls_id}, Class Name: {self._class_names[cls_id]}\n")
+                    # Write each line of predictions to the file
+                    for line in lines:
+                        output_file.write(f"{line}\n")
+
+            with open("/root/DeFRCN/sortedinput.txt", "w") as output_file:
+                for cls_id, lines in predictions.items():
+                    splitlines = [x.strip().split(" ") for x in lines]
+                    image_ids = [x[0] for x in splitlines]
+                    confidence = np.array([float(x[1]) for x in splitlines])
+                    BB = np.array([[float(z) for z in x[2:]] for x in splitlines]).reshape(-1, 4)
+
+                    # sort by confidence
+                    sorted_ind = np.argsort(-confidence)
+                    sorted_confidences = confidence[sorted_ind]
+                    #print("sorted_ind: ", sorted_ind)
+                    BB = BB[sorted_ind, :]
+                    image_ids = [image_ids[x] for x in sorted_ind]
+                    # Create a dictionary to store image_id, bbox, and confidence
+                    id_dict = {image_id: [] for image_id in image_ids}
+
+                    for i in range(len(image_ids)):
+                        id_dict[image_ids[i]].append((BB[i], sorted_confidences[i]))
+
+                    output_directory = "/root/DeFRCN/bilgilendirici2/"
+                    os.makedirs(output_directory, exist_ok=True)  # Create the output directory if it doesn't exist
+
+                    with open(os.path.join(output_directory, f"{self._class_names[cls_id]}.txt"), "w") as f:
+                        # Write each line of predictions to the file
+                        for image_id, values in id_dict.items():
+                            for value in values:
+                                bbox, conf = value
+                                f.write(f"{image_id} {bbox} {conf}\n")
+            print("******************")
             for cls_id, cls_name in enumerate(self._class_names):
+                print("cls_id, cls_name: ", cls_id, cls_name)
                 lines = predictions.get(cls_id, [""])
 
                 with open(res_file_template.format(cls_name), "w") as f:
@@ -112,6 +155,12 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
                     if self._novel_classes is not None and cls_name in self._novel_classes:
                         aps_novel[thresh].append(ap * 100)
                         exist_novel = True
+            # Copy the temporary directory to another location before it gets deleted
+            import shutil
+            destination_path = "/root/DeFRCN/hedef/"
+            if os.path.exists(destination_path):
+                shutil.rmtree(destination_path)
+            shutil.copytree(dirname, destination_path)
 
         ret = OrderedDict()
         mAP = {iou: np.mean(x) for iou, x in aps.items()}
@@ -254,6 +303,7 @@ def voc_eval(detpath, annopath, imagesetfile, classname, ovthresh=0.5, use_07_me
         det = [False] * len(R)
         npos = npos + sum(~difficult)
         class_recs[imagename] = {"bbox": bbox, "difficult": difficult, "det": det}
+        #print(f"bbox: {bbox}, difficult: {difficult}, det: {det}") # henüz difficultlar ve detler False
 
     # read dets
     detfile = detpath.format(classname)
@@ -267,58 +317,73 @@ def voc_eval(detpath, annopath, imagesetfile, classname, ovthresh=0.5, use_07_me
 
     # sort by confidence
     sorted_ind = np.argsort(-confidence)
+    sorted_confidences = confidence[sorted_ind]
+    #print("sorted_ind: ", sorted_ind)
     BB = BB[sorted_ind, :]
     image_ids = [image_ids[x] for x in sorted_ind]
+    
 
     # go down dets and mark TPs and FPs
-    nd = len(image_ids)
+    nd = len(image_ids) # nd=16845, 200 frame için, her detectionı sayıyor
     tp = np.zeros(nd)
     fp = np.zeros(nd)
-    for d in range(nd):
-        R = class_recs[image_ids[d]]
-        bb = BB[d, :].astype(float)
-        ovmax = -np.inf
-        BBGT = R["bbox"].astype(float)
 
-        if BBGT.size > 0:
-            # compute overlaps
-            # intersection
-            ixmin = np.maximum(BBGT[:, 0], bb[0])
-            iymin = np.maximum(BBGT[:, 1], bb[1])
-            ixmax = np.minimum(BBGT[:, 2], bb[2])
-            iymax = np.minimum(BBGT[:, 3], bb[3])
-            iw = np.maximum(ixmax - ixmin + 1.0, 0.0)
-            ih = np.maximum(iymax - iymin + 1.0, 0.0)
-            inters = iw * ih
+    output_directory = "/root/DeFRCN/bilgilendirici/"
+    os.makedirs(output_directory, exist_ok=True)  # Create the output directory if it doesn't exist
+    with open(os.path.join(output_directory, f"{classname}.txt"), "w") as f:
+    #with open(os.path.join(output_directory, f"ballet.txt"), "w") as f:
+        for d in range(nd):
+            R = class_recs[image_ids[d]]
+            bb = BB[d, :].astype(float) # bb modelin bulduğu bbox
+            ovmax = -np.inf
+            BBGT = R["bbox"].astype(float) # BBGT gerçek bbox
+            #print(f"image_ids: {image_ids[d]}, bbox: {bb}, gt: {BBGT}, confidence: {sorted_confidences[d]}")
+            f.write(f"image_ids: {image_ids[d]}, bbox: {bb}, gt: {BBGT}, confidence: {sorted_confidences[d]}\n")
 
-            # union
-            uni = (
-                (bb[2] - bb[0] + 1.0) * (bb[3] - bb[1] + 1.0)
-                + (BBGT[:, 2] - BBGT[:, 0] + 1.0) * (BBGT[:, 3] - BBGT[:, 1] + 1.0)
-                - inters
-            )
+            if BBGT.size > 0:
+                # compute overlaps
+                # intersection
+                ixmin = np.maximum(BBGT[:, 0], bb[0])
+                iymin = np.maximum(BBGT[:, 1], bb[1])
+                ixmax = np.minimum(BBGT[:, 2], bb[2])
+                iymax = np.minimum(BBGT[:, 3], bb[3])
+                iw = np.maximum(ixmax - ixmin + 1.0, 0.0)
+                ih = np.maximum(iymax - iymin + 1.0, 0.0)
+                inters = iw * ih
 
-            overlaps = inters / uni
-            ovmax = np.max(overlaps)
-            jmax = np.argmax(overlaps)
+                # union
+                uni = (
+                    (bb[2] - bb[0] + 1.0) * (bb[3] - bb[1] + 1.0)
+                    + (BBGT[:, 2] - BBGT[:, 0] + 1.0) * (BBGT[:, 3] - BBGT[:, 1] + 1.0)
+                    - inters
+                )
 
-        if ovmax > ovthresh:
-            if not R["difficult"][jmax]:
-                if not R["det"][jmax]:
-                    tp[d] = 1.0
-                    R["det"][jmax] = 1
-                else:
-                    fp[d] = 1.0
-        else:
-            fp[d] = 1.0
+                overlaps = inters / uni
+                ovmax = np.max(overlaps) # o framedeki max IOU değeri
+                jmax = np.argmax(overlaps) # o max değerin sırası(aynı frame numberdaki confidence'e göre listelenmişler arasındaki sıra)
+
+            if ovmax > ovthresh:
+                if not R["difficult"][jmax]: # bu condition hep sağlanıyor
+                    if not R["det"][jmax]: # henüz tespit edilmemişse giriyor
+                        tp[d] = 1.0
+                        R["det"][jmax] = 1 # artık d. satırda box detected ve bu TP için +1  
+                    else:
+                        fp[d] = 1.0 # undetected, FP
+            else:
+                fp[d] = 1.0 # thresholdu geçemediyse FP
 
     # compute precision recall
     fp = np.cumsum(fp)
     tp = np.cumsum(tp)
     rec = tp / float(npos)
+    print("fp: ", fp)
+    print("tp: ", tp)
+    print("rec: ", rec)
     # avoid divide by zero in case the first detection matches a difficult
     # ground truth
     prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
+    print("prec: ", prec)
     ap = voc_ap(rec, prec, use_07_metric)
+    print("ap: ", ap)
 
     return rec, prec, ap

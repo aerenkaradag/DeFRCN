@@ -11,7 +11,7 @@ conda create -y -n newenv python=3.8 anaconda
 conda activate newenv 
 cd DeFRCN
 bash setup.sh
-python fotocekici2.py --custom --count 1 --random True --video deer
+python fotocekici3.py --custom --count 1 --random True --video deer
 CUDA_MODULE_LOADING=LAZY bash novel_train.sh defrcn_one 4
 
 ```

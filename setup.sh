@@ -33,7 +33,8 @@ pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 -f https://download.pyt
 python -m pip install detectron2==0.3 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu110/torch1.7/index.html
 pip install opencv-python
 pip install scikit-learn
-pip install gdown
+pip install gdown==4.6.0
+pip install pillow==9.5.0
 
 # Install necessary system packages
 sudo apt-get update
@@ -53,6 +54,10 @@ pip install "numpy<1.24"
 
 # Install nano text editor
 sudo apt-get install nano
+
+# Clone the repository
+git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+cd DeFRCN
 
 # # Data Preparation
 # gdown --fuzzy https://drive.google.com/file/d/1BcuJ9j9Mtymp56qGSOfYxlXN4uEVyxFm/view?usp=sharing -O VOC2007.zip
@@ -76,9 +81,9 @@ unzip voc.zip -d checkpoints/
 rm voc.zip
 
 cd checkpoints/voc/defrcn_one/
-mv defrcn_fsod_r101_novel3 defrcn_fsod_r101_novel4
-mv defrcn_gfsod_r101_novel3 defrcn_gfsod_r101_novel4
-mv defrcn_det_r101_base3 defrcn_det_r101_base4
+cp -r defrcn_fsod_r101_novel3 defrcn_fsod_r101_novel4
+cp -r defrcn_gfsod_r101_novel3 defrcn_gfsod_r101_novel4
+cp -r defrcn_det_r101_base3 defrcn_det_r101_base4
 
 
 

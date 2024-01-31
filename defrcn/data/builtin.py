@@ -94,7 +94,7 @@ def register_all_voc(root="datasets"):
                         )
 
     for prefix in ["all", "novel"]:
-        for sid in range(5, 6): # 2 yeni split eklendi
+        for sid in range(4, 6): # 2 yeni split eklendi
             for shot in [1, 2, 3, 5, 8]: #1, 2, 3, 5, 10]:
                 for year in [2007]:
                     for seed in range(30):
@@ -115,8 +115,30 @@ def register_all_voc(root="datasets"):
                             (name, dirname, img_file, keepclasses, sid)
                         )
 
+    for prefix in ["all", "novel"]:
+        for sid in range(4, 6): # 2 yeni split eklendi
+            for shot in [1, 2, 3, 5, 8]: #1, 2, 3, 5, 10]:
+                for year in [2007]:
+                    for seed in range(30):
+                        seed = "_seed{}".format(seed)
+                        name = "voc_{}test{}{}_{}shot{}".format(
+                            year, prefix, sid, shot, seed
+                        )
+                        dirname = "VOCCustom"
+                        img_file = "{}_{}shot_split_{}_test".format(
+                            prefix, shot, sid
+                        )
+                        keepclasses = (
+                            "base_novel_{}".format(sid)
+                            if prefix == "all"
+                            else "novel{}".format(sid)
+                        )
+                        METASPLITS.append(
+                            (name, dirname, img_file, keepclasses, sid)
+                        )
+
     for name, dirname, split, keepclasses, sid in METASPLITS:
-        year = 2007 if "2007" in name else 2012
+        year = 2007 # if "2007" in name else 2012
         register_meta_voc(
             name,
             _get_builtin_metadata("voc_fewshot"),

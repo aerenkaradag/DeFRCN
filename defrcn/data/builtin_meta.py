@@ -190,7 +190,7 @@ PASCAL_VOC_NOVEL_CATEGORIES = {
     2: ["aeroplane", "bottle", "cow", "horse", "sofa"],
     3: ["boat", "cat", "motorbike", "sheep", "sofa"],
     4: ["newobject"],
-    4: ["newobject"],
+    5: ["newobject"],
 }
 
 PASCAL_VOC_BASE_CATEGORIES = {

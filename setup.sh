@@ -55,22 +55,22 @@ pip install "numpy<1.24"
 # Install nano text editor
 sudo apt-get install nano
 
-# Clone the repository
-git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
-cd DeFRCN
+# # Clone the repository
+# git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+# cd DeFRCN
 
-# # Data Preparation
-# gdown --fuzzy https://drive.google.com/file/d/1BcuJ9j9Mtymp56qGSOfYxlXN4uEVyxFm/view?usp=sharing -O VOC2007.zip
-# unzip VOC2007.zip -d datasets/
-# rm VOC2007.zip
+# Data Preparation
+gdown --fuzzy https://drive.google.com/file/d/1BcuJ9j9Mtymp56qGSOfYxlXN4uEVyxFm/view?usp=sharing -O VOC2007.zip
+unzip VOC2007.zip -d datasets/
+rm VOC2007.zip
 
-# gdown --fuzzy https://drive.google.com/file/d/1NjztPltqm-Z-pG94a6PiPVP4BgD8Sz1H/view?usp=sharing -O VOC2012.zip
-# unzip VOC2012.zip -d datasets/
-# rm VOC2012.zip
+gdown --fuzzy https://drive.google.com/file/d/1NjztPltqm-Z-pG94a6PiPVP4BgD8Sz1H/view?usp=sharing -O VOC2012.zip
+unzip VOC2012.zip -d datasets/
+rm VOC2012.zip
 
-# gdown --fuzzy https://drive.google.com/file/d/1BpDDqJ0p-fQAFN_pthn2gqiK5nWGJ-1a/view?usp=sharing -O vocsplit.zip
-# unzip vocsplit.zip -d datasets/
-# rm vocsplit.zip
+gdown --fuzzy https://drive.google.com/file/d/1BpDDqJ0p-fQAFN_pthn2gqiK5nWGJ-1a/view?usp=sharing -O vocsplit.zip
+unzip vocsplit.zip -d datasets/
+rm vocsplit.zip
 
 gdown --fuzzy https://drive.google.com/file/d/1rsE20_fSkYeIhFaNU04rBfEDkMENLibj/view?usp=sharing -O ImageNetPretrained.zip
 unzip ImageNetPretrained.zip

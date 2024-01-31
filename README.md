@@ -3,13 +3,13 @@
 # Setup
 ```
 cd /root/
-git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+git clone -b VocandVot https://github.com/aerenkaradag/DeFRCN
 bash DeFRCN/assets/presetup.sh 
 # enter and yes
 #close terminal and open new terminal
 conda create -y -n newenv python=3.8 anaconda
 conda activate newenv 
-cd DeFRCN
+cd root/DeFRCN/
 bash setup.sh
 python fotocekici3.py --custom --count 1 --random True --video deer
 CUDA_MODULE_LOADING=LAZY bash novel_train.sh defrcn_one 4

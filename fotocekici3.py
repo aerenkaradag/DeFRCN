@@ -300,7 +300,14 @@ def main(args):
                 shutil.copy2(f'{video_name}.txt', os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "train.txt"))
 
             shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "train.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "trainval.txt"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "train.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "test.txt"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "train.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout", "val.txt"))
             shutil.move(f"{video_name}.txt", os.path.join(os.path.join(os.getcwd(), "VOCCustom", "ImageSets" ), "Main"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", f"{video_name}.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", "train.txt"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", f"{video_name}.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", "trainval.txt"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", f"{video_name}.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", "test.txt"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", f"{video_name}.txt"), os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main", "val.txt"))
+            
             # Define source and destination directories
             # source_directory = os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Main")
             # destination_directory = os.path.join(os.getcwd(), "VOCCustom", "ImageSets", "Layout")
@@ -352,7 +359,7 @@ def main(args):
       #add_background_to_xml(dst)
             
 def download_videos():
-    with open('./assets/videosST.txt', 'r') as file:
+    with open('./assets/videos.txt', 'r') as file:
         for line in file:
             video_name, video_url = line.strip().split(": ")
             os.system(f'curl -L "{video_url}" -o "{video_name}.zip"')
@@ -366,7 +373,7 @@ def download_videos():
 def download_groundtruths():
     # for LT videos: https://drive.google.com/uc?id=1-q1UafYST5_24s6UJpLCnnIX3CrbuhVy
     # for ST videos: https://drive.google.com/file/d/1YdNAtXlzlnOqTTkvum9onRG16J-dt0E0
-    os.system('gdown "https://drive.google.com/uc?export=download&id=1T3NBp2diZKf4eElBu4TdckXm6YaDK1p6" -O groundtruths.zip')
+    os.system('gdown "https://drive.google.com/uc?id=1-q1UafYST5_24s6UJpLCnnIX3CrbuhVy" -O groundtruths.zip')
     with zipfile.ZipFile('groundtruths.zip', 'r') as zip_ref:
         zip_ref.extractall('assets/')
     os.remove('groundtruths.zip')

@@ -53,6 +53,7 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
             scores = instances.scores.tolist()
             classes = instances.pred_classes.tolist()            
             for box, score, cls in zip(boxes, scores, classes):
+                #if score > 0.5:
                 #print("box, score, cls: ", box, score, cls)
                 xmin, ymin, xmax, ymax = box
                 # The inverse of data loading logic in `datasets/pascal_voc.py`

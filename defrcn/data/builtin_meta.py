@@ -159,7 +159,7 @@ COCO_NOVEL_CATEGORIES = [
     {"color": [183, 130, 88], "isthing": 1, "id": 72, "name": "tv"},
 ]
 
-# PASCAL VOC categories
+# PASCAL VOC categories # 4.split 15+1 / 5.split 0+1 
 PASCAL_VOC_ALL_CATEGORIES = {
     1: ["aeroplane", "bicycle", "boat", "bottle", "car",
         "cat", "chair", "diningtable", "dog", "horse",
@@ -176,14 +176,20 @@ PASCAL_VOC_ALL_CATEGORIES = {
         "horse", "person", "pottedplant", "train", "tvmonitor",
         "boat", "cat", "motorbike", "sheep", "sofa",
     ],
-    4: ["newobject"
-    ]
+    4: ["aeroplane", "bicycle", "bird", "bottle", "bus",
+        "car", "chair", "cow", "diningtable", "dog",
+        "horse", "person", "pottedplant", "train", "tvmonitor",
+        "newobject",
+    ],
+    5: ["newobject"
+    ],
 }
 
 PASCAL_VOC_NOVEL_CATEGORIES = {
     1: ["bird", "bus", "cow", "motorbike", "sofa"],
     2: ["aeroplane", "bottle", "cow", "horse", "sofa"],
     3: ["boat", "cat", "motorbike", "sheep", "sofa"],
+    4: ["newobject"],
     4: ["newobject"],
 }
 
@@ -200,8 +206,12 @@ PASCAL_VOC_BASE_CATEGORIES = {
         "car", "chair", "cow", "diningtable", "dog",
         "horse", "person", "pottedplant", "train", "tvmonitor",
     ],
-    4: [
-    ]
+    4: ["aeroplane", "bicycle", "bird", "bottle", "bus",
+        "car", "chair", "cow", "diningtable", "dog",
+        "horse", "person", "pottedplant", "train", "tvmonitor",
+    ],    
+    5: [
+    ],
 }
 
 

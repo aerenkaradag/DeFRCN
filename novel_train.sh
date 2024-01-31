@@ -28,7 +28,7 @@ BASE_WEIGHT=${SAVE_DIR}/defrcn_det_r101_base${SPLIT_ID}/model_reset_remove.pth
 # --> 1. FSRW-like, i.e. run seed0 10 times (the FSOD results on voc in most papers)
 for repeat_id in 0 # 1 2 3 4 5 6 7 8 9
 do
-    for shot in 1 2 3 #1 2 3 5 10   # if final, 10 -> 1 2 3 5 10
+    for shot in 1 8 #1 2 3 5 10   # if final, 10 -> 1 2 3 5 10
     do
         for seed in 0
         do
@@ -42,7 +42,7 @@ do
         done
     done
 done
-python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 2 3 # surmarize all results
+python3 tools/extract_results.py --res-dir ${SAVE_DIR}/defrcn_fsod_r101_novel${SPLIT_ID}/fsrw-like --shot-list 1 8 # surmarize all results
 
 
 # # ----------------------------- Model Preparation --------------------------------- #

@@ -42,12 +42,12 @@ def main():
             if '  TRAIN: ' in lineinfo:
                 print("************TRAIN************")
                 _str_ = '  TRAIN: ("voc_2007_trainval_{}{}_{}shot_seed{}", )\n'
-                print(_str_)
+                #print(_str_)
                 yaml_info[i] = _str_.format(suffix, args.split, args.shot, args.seed)
             if '  TEST: ' in lineinfo:
                 print("************TEST************")
                 _str_ = '  TEST: ("voc_2007_test_{}{}",)\n'
-                print(_str_)
+                #print(_str_)
                 yaml_info[i] = _str_.format(suffix, args.split)
         yaml_path = yaml_path.replace('novelx', 'novel{}'.format(args.split))
         print("DeFRCN/tools/create_config.py line 53, yaml_path:", yaml_path)

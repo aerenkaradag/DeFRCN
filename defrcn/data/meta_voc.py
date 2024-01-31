@@ -57,9 +57,11 @@ def load_filtered_voc_instances(
                 anno_file = os.path.join(
                     dirname, "Annotations", fileid + ".xml"
                 )
+                print("anno_file: ", anno_file)
                 jpeg_file = os.path.join(
                     dirname, "JPEGImages", fileid + ".jpg"
                 )
+                print("jpeg_file: ", jpeg_file)
 
                 tree = ET.parse(anno_file)
 
@@ -91,10 +93,10 @@ def load_filtered_voc_instances(
                     r["annotations"] = instances
                     dicts_.append(r)
             if len(dicts_) > int(shot):
-                # dicts_ = np.random.choice(dicts_, int(shot), replace=False) # random shot selection (original code)
-                # dicts_ = dicts_[:int(shot)] # ilk x kadar framei shot olarak al
-                step = len(dicts_) // int(shot)
-                dicts_ = [dicts_[i * step] for i in range(int(shot))] # o classtaki fotolardan eşit aralıklarla shot alınması
+                dicts_ = np.random.choice(dicts_, int(shot), replace=False) # random shot selection (original code)
+                #dicts_ = dicts_[:int(shot)] # ilk x kadar framei shot olarak al
+                #step = len(dicts_) // int(shot)
+                #dicts_ = [dicts_[i * step] for i in range(int(shot))] # o classtaki fotolardan eşit aralıklarla shot alınması
             dicts.extend(dicts_)
     else:
         for fileid in fileids:

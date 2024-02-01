@@ -55,9 +55,9 @@ pip install "numpy<1.24"
 # Install nano text editor
 sudo apt-get install nano
 
-# Clone the repository
-git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
-cd DeFRCN
+# # Clone the repository
+# git clone -b votdataset https://github.com/aerenkaradag/DeFRCN
+# cd DeFRCN
 
 # # Data Preparation
 # gdown --fuzzy https://drive.google.com/file/d/1BcuJ9j9Mtymp56qGSOfYxlXN4uEVyxFm/view?usp=sharing -O VOC2007.zip

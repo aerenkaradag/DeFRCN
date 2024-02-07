@@ -85,5 +85,10 @@ cp -r defrcn_fsod_r101_novel3 defrcn_fsod_r101_novel4
 cp -r defrcn_gfsod_r101_novel3 defrcn_gfsod_r101_novel4
 cp -r defrcn_det_r101_base3 defrcn_det_r101_base4
 
+cd defrcn_fsod_r101_novel4/fsrw-like/
+cp -r 10shot_seed0_repeat0 8shot_seed0_repeat0
+cp -r 5shot_seed0_repeat0 6shot_seed0_repeat0
+
+
 
 

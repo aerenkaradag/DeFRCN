@@ -12,6 +12,8 @@ from detectron2.utils import comm
 from detectron2.data import MetadataCatalog
 from detectron2.utils.logger import create_small_table
 from defrcn.evaluation.evaluator import DatasetEvaluator
+import shutil
+from datetime import datetime
 
 
 class PascalVOCDetectionEvaluator(DatasetEvaluator):
@@ -157,10 +159,15 @@ class PascalVOCDetectionEvaluator(DatasetEvaluator):
                         aps_novel[thresh].append(ap * 100)
                         exist_novel = True
             # Copy the temporary directory to another location before it gets deleted
-            import shutil
-            destination_path = "/root/DeFRCN/hedef/"
+            # Get the current hour
+            current_hour = datetime.now().strftime('%H')
+            # Make the destination path include the current hour
+            destination_path = f"/root/DeFRCN/hedef_{current_hour}/"
+            # Remove the directory if it exists
             if os.path.exists(destination_path):
-                shutil.rmtree(destination_path)
+                #shutil.rmtree(destination_path)
+                destination_path = f"/root/DeFRCN/hedef2_{current_hour}/"
+            # Copy the directory
             shutil.copytree(dirname, destination_path)
 
         ret = OrderedDict()

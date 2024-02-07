@@ -113,8 +113,6 @@ class PrototypicalCalibrationBlock:
         iright = (dts[0]['instances'].scores > self.cfg.TEST.PCB_LOWER).sum()
         #print("iright: ", iright) # o framede kaç box detect etmişse mesela 70
         assert ileft <= iright
-        import time
-        time.sleep(10)
         boxes = [dts[0]['instances'].pred_boxes[ileft:iright]]
 
         features = self.extract_roi_features(img, boxes)

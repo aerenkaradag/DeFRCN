@@ -84,8 +84,6 @@ def inference_on_dataset(model, data_loader, evaluator, cfg=None):
     num_devices = torch.distributed.get_world_size() if torch.distributed.is_initialized() else 1
     logger = logging.getLogger(__name__)
     print("cfg.TEST.PCB_ENABLE : ", cfg.TEST.PCB_ENABLE)
-    import time
-    time.sleep(10)
     pcb = None
     if cfg.TEST.PCB_ENABLE:
         logger.info("Start initializing PCB module, please wait a seconds...")
@@ -110,11 +108,9 @@ def inference_on_dataset(model, data_loader, evaluator, cfg=None):
             start_compute_time = time.time()
             outputs = model(inputs)
             #print(outputs)
-            time.sleep(20)
             if cfg.TEST.PCB_ENABLE:
                 outputs = pcb.execute_calibration(inputs, outputs)
             #print(outputs)
-            time.sleep(20)
             torch.cuda.synchronize()
             total_compute_time += time.time() - start_compute_time
             evaluator.process(inputs, outputs)

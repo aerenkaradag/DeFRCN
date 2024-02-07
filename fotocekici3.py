@@ -301,6 +301,7 @@ def main(args):
 
             shutil.copyfile(os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Layout", "train.txt"), os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Layout", "trainval.txt"))
             shutil.move(f"{video_name}.txt", os.path.join(os.path.join(os.getcwd(), "VOC2007", "ImageSets" ), "Main"))
+            shutil.copyfile(os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Layout", "train.txt"), os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Main", "test.txt"))
             # Define source and destination directories
             # source_directory = os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Main")
             # destination_directory = os.path.join(os.getcwd(), "VOC2007", "ImageSets", "Layout")

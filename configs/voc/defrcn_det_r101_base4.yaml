@@ -1,6 +1,6 @@
 _BASE_: "../Base-RCNN.yaml"
 MODEL:
-  WEIGHTS: "/root/DeFRCN/ImageNetPretrained/MSRA/"
+  WEIGHTS: "/content/DeFRCN/ImageNetPretrained/MSRA/"
   MASK_ON: False
   RESNETS:
     DEPTH: 101
@@ -22,4 +22,4 @@ SOLVER:
   MAX_ITER: 15000
   CHECKPOINT_PERIOD: 200000
   WARMUP_ITERS: 100
-OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/defrcn_one/"
+OUTPUT_DIR: "/content/DeFRCN/checkpoints/voc/defrcn_one/"

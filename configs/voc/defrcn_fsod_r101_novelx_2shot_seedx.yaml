@@ -1,6 +1,6 @@
 _BASE_: "../Base-RCNN.yaml"
 MODEL:
-  WEIGHTS: "/root/DeFRCN/ImageNetPretrained/MSRA/"
+  WEIGHTS: "/content/DeFRCN/ImageNetPretrained/MSRA/"
   MASK_ON: False
   BACKBONE:
     FREEZE: False
@@ -31,5 +31,5 @@ SOLVER:
   WARMUP_ITERS: 0
 TEST:
   PCB_ENABLE: True
-  PCB_MODELPATH: "/root/DeFRCN/ImageNetPretrained/torchvision"
-OUTPUT_DIR: "/root/DeFRCN/checkpoints/voc/defrcn_one/"
+  PCB_MODELPATH: "/content/DeFRCN/ImageNetPretrained/torchvision"
+OUTPUT_DIR: "/content/DeFRCN/checkpoints/voc/defrcn_one/"

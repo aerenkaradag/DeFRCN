@@ -2,9 +2,9 @@
 
 python3 clear_memory.py
 EXP_NAME=$1
-SAVE_DIR=/root/DeFRCN/checkpoints/voc/${EXP_NAME}
-IMAGENET_PRETRAIN=/root/DeFRCN/ImageNetPretrained/MSRA/R-101.pkl                            # <-- change it to you path
-IMAGENET_PRETRAIN_TORCH=/root/DeFRCN/ImageNetPretrained/torchvision/resnet101-5d3b4d8f.pth  # <-- change it to you path
+SAVE_DIR=/content/DeFRCN/checkpoints/voc/${EXP_NAME}
+IMAGENET_PRETRAIN=/content/DeFRCN/ImageNetPretrained/MSRA/R-101.pkl                            # <-- change it to you path
+IMAGENET_PRETRAIN_TORCH=/content/DeFRCN/ImageNetPretrained/torchvision/resnet101-5d3b4d8f.pth  # <-- change it to you path
 SPLIT_ID=$2
 echo "EXP_NAME: ${EXP_NAME}"
 echo "SAVE_DIR: ${SAVE_DIR}"
